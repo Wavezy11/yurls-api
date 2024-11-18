@@ -2,8 +2,6 @@
 let graphClient;
 
 async function initializeGraphClient() {
-    // In a real application, you'd implement proper authentication here
-    // For demo purposes, we're using a dummy access token
     const accessToken = 'dummy_access_token';
     
     graphClient = MicrosoftGraph.Client.init({
@@ -13,7 +11,6 @@ async function initializeGraphClient() {
     });
 }
 
-// Function to fetch data from SharePoint
 async function fetchSharePointData() {
     try {
         const response = await graphClient.api('/sites/{site-id}/lists/{list-id}/items')
@@ -27,12 +24,10 @@ async function fetchSharePointData() {
     }
 }
 
-// Function to process data (works for both SharePoint and local JSON)
 function processData(data) {
     const categoryContainer = document.getElementById('categoryContainer');
     const subjects = {};
 
-    // Groepeer onderwerpen per categorie en vak
     data.forEach(item => {
         if (!subjects[item.categorie]) {
             subjects[item.categorie] = {};
@@ -41,7 +36,6 @@ function processData(data) {
             subjects[item.categorie][item.vak] = [];
         }
 
-        // Voeg onderwerp en URL toe aan het vak
         subjects[item.categorie][item.vak].push({
             onderwerp: item.onderwerp,
             url: item.url,
@@ -51,10 +45,13 @@ function processData(data) {
         });
     });
 
-    // Clear existing content
+    renderContent(subjects);
+}
+
+function renderContent(subjects) {
+    const categoryContainer = document.getElementById('categoryContainer');
     categoryContainer.innerHTML = '';
 
-    // Dynamisch HTML-elementen maken voor elke categorie en vak
     for (const category in subjects) {
         const section = document.createElement('section');
         section.classList.add('category');
@@ -66,6 +63,11 @@ function processData(data) {
             const subjectContainer = document.createElement('div');
             subjectContainer.classList.add('subject-container');
             subjectContainer.setAttribute('data-subject', vak);
+
+            const subjectInfo = {
+                items: subjects[category][vak]
+            };
+            subjectContainer.setAttribute('data-subject-info', JSON.stringify(subjectInfo));
 
             const vakText = document.createElement('p');
             vakText.innerText = vak;
@@ -81,7 +83,6 @@ function processData(data) {
     }
 }
 
-// Main function to load data
 async function loadData() {
     try {
         await initializeGraphClient();
@@ -93,7 +94,6 @@ async function loadData() {
         }
     } catch (error) {
         console.error('Error loading SharePoint data:', error);
-        // Fallback to local JSON if SharePoint fetch fails
         fetch('csvjson.json')
             .then(response => response.json())
             .then(data => {
@@ -103,7 +103,6 @@ async function loadData() {
     }
 }
 
-// Function to open the modal
 function openModal(vak, onderwerpen) {
     const modal = document.getElementById('popupModal');
     const selectedSubject = document.getElementById('selectedSubject');
@@ -117,53 +116,50 @@ function openModal(vak, onderwerpen) {
     taalElement.innerHTML = '';
 
     onderwerpen.forEach(item => {
-        // Maak een lijstitem voor het onderwerp
         const listItem = document.createElement('li');
         
-        // Maak de link en voeg deze toe
         const linkElement = document.createElement('a');
         linkElement.href = item.url;
         linkElement.target = "_blank";
         linkElement.innerText = item.onderwerp;
 
-        // Maak de platform, taal en prijs elementen
         const platformSpan = document.createElement('span');
         platformSpan.classList.add('platform');
-        platformSpan.innerText = item.platform ? `Platform: ${item.platform}` : 'Platform niet gespecificeerd';
+        platformSpan.innerText = `Platform: ${item.platform}`;
 
         const taalSpan = document.createElement('span');
         taalSpan.classList.add('taal');
-        taalSpan.innerText = item.taal ? `Taal: ${item.taal}` : 'Taal niet gespecificeerd';
+        taalSpan.innerText = `Taal: ${item.taal}`;
 
         const prijsSpan = document.createElement('span');
         prijsSpan.classList.add('prijs');
-        prijsSpan.innerText = item.prijs ? `Prijs: ${item.prijs}` : 'Prijs niet beschikbaar';
+        prijsSpan.innerText = `Prijs: ${item.prijs}`;
 
-        // Voeg de link, platform, taal en prijs toe aan het lijstitem
         listItem.appendChild(linkElement);
         listItem.appendChild(platformSpan);
         listItem.appendChild(taalSpan);
         listItem.appendChild(prijsSpan);
 
-        // Voeg het lijstitem toe aan de lijst in de modal
         linksList.appendChild(listItem);
     });
 
     modal.style.display = 'flex';
-
-    // Scroll naar boven om de modal optimaal te kunnen zien
     modal.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-// Function to close the modal
 function closeModal() {
     const modal = document.getElementById('popupModal');
     modal.style.display = 'none';
 }
 
-// Function to filter images
-function filterImages() {
+function filterContent() {
     const searchInput = document.getElementById('searchInput').value.toLowerCase();
+    const vrFilter = document.getElementById('vrFilter').checked;
+    const freeFilter = document.getElementById('freeFilter').checked;
+    const paidFilter = document.getElementById('paidFilter').checked;
+    const nlFilter = document.getElementById('nlFilter').checked;
+    const engFilter = document.getElementById('engFilter').checked;
+
     const categories = document.querySelectorAll('.category');
 
     categories.forEach(category => {
@@ -171,34 +167,43 @@ function filterImages() {
         const subjects = category.querySelectorAll('.subject-container');
         subjects.forEach(subject => {
             const vakText = subject.querySelector('p').innerText.toLowerCase();
-            if (vakText.includes(searchInput)) {
-                subject.style.display = 'block';  // Show subject
-                categoryVisible = true;  // Mark category as visible
+            const subjectInfo = JSON.parse(subject.getAttribute('data-subject-info'));
+
+            let subjectVisible = subjectInfo.items.some(item => {
+                const matchesSearch = item.onderwerp.toLowerCase().includes(searchInput);
+                const matchesVR = !vrFilter || item.platform.toLowerCase().includes('vr');
+                const matchesFree = !freeFilter || item.prijs.toLowerCase().includes('gratis');
+                const matchesPaid = !paidFilter || (item.prijs.toLowerCase() !== 'gratis' && item.prijs.toLowerCase() !== 'niet beschikbaar');
+                const matchesNL = !nlFilter || item.taal.toLowerCase().includes('nl');
+                const matchesENG = !engFilter || item.taal.toLowerCase().includes('eng');
+
+                return matchesSearch && matchesVR && (matchesFree || matchesPaid) && (matchesNL || matchesENG);
+            });
+
+            if (subjectVisible) {
+                subject.style.display = 'block';
+                categoryVisible = true;
             } else {
-                subject.style.display = 'none';  // Hide subject
+                subject.style.display = 'none';
             }
         });
 
-        // Show or hide the entire category based on if any subject was found
         category.style.display = categoryVisible ? 'block' : 'none';
     });
 }
 
-// Initialize the page when it loads
 window.onload = function() {
     loadData();
     
     const closeModalButton = document.querySelector('.close');
     const doorgaanButton = document.getElementById('gaDoorButton');
 
-    // Sluitknop
     if (closeModalButton) {
         closeModalButton.addEventListener('click', closeModal);
     } else {
         console.error('Close button not found!');
     }
 
-    // Doorgaan knop
     if (doorgaanButton) {
         doorgaanButton.addEventListener('click', () => {
             closeModal();
@@ -207,11 +212,15 @@ window.onload = function() {
         console.error('Doorgaan button not found!');
     }
 
-    // Add event listener for search input
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
-        searchInput.addEventListener('input', filterImages);
+        searchInput.addEventListener('input', filterContent);
     } else {
         console.error('Search input not found!');
     }
+
+    const filterCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"]');
+    filterCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', filterContent);
+    });
 };
