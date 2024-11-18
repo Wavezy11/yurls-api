@@ -9,17 +9,17 @@
 
 2. Open the project, go to the root and open terminal. 
     \`\`\`
-    
+
     Download npm install dotenv @azure/identity @microsoft/microsoft-graph-client
 
    \`\`\`
-3. If you're using SharePoint integration, create a `.env` file in the root directory with your SharePoint credentials:
-   \`\`\`
-   TENANT_ID=your_tenant_id
-   CLIENT_ID=your_client_id
-   CLIENT_SECRET=your_client_secret
-   SITE_ID=your_sharepoint_site_id
-   \`\`\`
+3. If you're using SharePoint integration, create a `.env` file in the root directory with your SharePoint credentials: <br>
+
+   TENANT_ID=your_tenant_id <br>
+   CLIENT_ID=your_client_id <br>
+   CLIENT_SECRET=your_client_secret <br>
+   SITE_ID=your_sharepoint_site_id <br>
+  
 
 4. Open `index.html` in a web browser to view the application locally.
 
