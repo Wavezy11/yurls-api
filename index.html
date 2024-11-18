@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIT</title>
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        a {
+            text-decoration: none;
+        }
+        </style>
+</head>
+<body>
+<header>
+    <div class="header-content">
+        <img src="img/logo-yonder.png" alt="logo" class="logo">
+        <input type="search" id="searchInput" oninput="filterImages()" placeholder="Zoeken">
+    </div>
+</header>
+    <main>
+        <div id="categoryContainer"></div>
+
+    
+    </main>
+    <footer>
+        <div class="footer-content">
+
+        <a href="login.php">
+            <p>&copy; 2024 Yonder. All rights reserved.</p>
+        </a>
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
+    <div id="popupModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Links for <span id="selectedSubject"></span></h2>
+            <ul id="linksList"></ul>
+            <div class="details-section">
+                <!-- Verwijder platform-container div en voeg platform inline toe zoals taal en prijs -->
+                <span id="platform"></span>
+                <div id="prijs"></div>
+                <div id="taal"></div>
+            </div>
+            <button id="gaDoorButton" class="ga-door-button">Doorgaan</button>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@microsoft/microsoft-graph-client/lib/graph-js-sdk.js"></script>
+  
+    <script src="js/main.js"></script>
+
+</body>
+</html>
+

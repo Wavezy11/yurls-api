@@ -1,0 +1,500 @@
+/* Basic Styling */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #F0F4F8;
+    color: #333;
+    box-sizing: border-box;
+}
+
+/* Header */
+header {
+    background-color: #ffffff;
+    padding: 20px 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.taal, .prijs, .platform {
+    margin-left: 10px; /* Ruimte tussen de link, taal, prijs en platform */
+    font-size: 14px;
+    color: #666;
+}
+
+
+#linksList li {
+    display: flex;
+    justify-content: space-between; /* Zorgt ervoor dat de taal en prijs aan de rechterkant staan */
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+#linksList a {
+    text-decoration: none;
+    color: #333;
+    flex: 1; /* Zorgt ervoor dat de link ruimte krijgt */
+}
+
+.taal, .prijs {
+  
+    margin-left: 10px; /* Ruimte tussen de link, taal en prijs */
+    font-size: 14px;
+    color: #666;
+}
+
+header img {
+    width: 120px;
+}
+#searchInput {
+    padding: 10px;
+    border-radius: 30px;
+    border: 1px solid #d1d1d1;
+    width: 300px;
+}/* Adjust the details section to align items on the left */
+.details-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    gap: 10px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; /* Linker uitlijning */
+    align-items: center;
+    gap: 15px; /* Zorgt voor wat ruimte tussen de elementen */
+}
+.app {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+#searchInput:focus {
+    border-color: #8F88FD;
+    outline: none;
+}
+
+
+/* Main Content */
+main {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Flexbox layout for categories */
+#categoryContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 gelijke kolommen */
+    gap: 20px; /* Ruimte tussen de kolommen */
+    margin-top: 20px;
+}
+#linksList {
+   gap: 10px;
+}
+/* Individual category styling */
+.category {
+    flex: 1;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.category h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.header-content {
+    display: flex; /* Gebruik flexbox voor de indeling */
+    align-items: center; /* Centraal uitlijnen van de items verticaal */
+    justify-content: space-between; /* Ruimte tussen logo en zoekbalk */
+    max-width: 1200px; /* Max breedte voor de header */
+    margin: 0 auto; /* Centeren van de header rin de pagina */
+}
+
+
+
+/* Subject Layout: Image on left, Text on right */
+.subject-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centers both image and text */
+    background-color: #ffffff;
+    border: 1px solid #d1d1d1;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.subject-container img {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+}
+.subject-container p {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+    text-align: center; /* Centers the text horizontally */
+}
+.subject-container:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-5px);
+}
+
+/* Modal Styling */
+
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed; /* Changed to fixed to prevent it from scrolling */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto; /* Allows scrolling if content overflows */
+}
+
+.modal-content {
+    background-color: #d1e0e0; /* Adjusted to match your theme */
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 80%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    position: relative;
+    text-align: left; /* Align text to the left for better readability */
+}
+
+/* Close button for Modal */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #e74c3c;
+}
+
+/* Button inside the modal */
+.ga-door-button {
+    background-color: #8F88FD;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.ga-door-button:hover {
+    background-color: #6b5eea;
+    transform: translateY(-3px);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    main {
+        padding: 20px;
+    }
+    .modal-content {
+        padding: 20px;
+        width: 90%;
+    }
+}
+@media (max-width: 468px) {
+    .modal-content {
+        padding: 15px;
+        width: 90%;
+    }
+    .close {
+        font-size: 20px;
+    }
+    .ga-door-button {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}   body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #F0F4F8;
+    color: #333;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #ffffff;
+   
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px; 
+}
+header img {
+    width: 120px;
+}
+#searchInput {
+    padding: 10px;
+    border-radius: 30px;
+    border: 1px solid #d1d1d1;
+    width: 300px;
+    position: absolute;
+    right: 40vw;
+}
+#searchInput:focus {
+    border-color: #8F88FD;
+    outline: none;
+}
+/* Main Content */
+main {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+}
+/* Flexbox layout for categories */
+.category-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px; /* space between columns */
+}
+/* Individual category styling */
+.category {
+    flex: 1;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.category h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+/* Subject Layout: Image on left, Text on right */
+/* Subject Layout: Image on left, Text on right */
+.subject-container {
+display: flex;
+align-items: center;
+background-color: #ffffff;
+border: 1px solid #d1d1d1;
+border-radius: 12px;
+padding: 20px;
+margin-bottom: 20px;
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Added transition for smooth effect */
+}
+
+.subject-container img {
+width: 50px;
+height: 50px;
+margin-right: 20px;
+transition: transform 0.3s; /* Smooth scaling effect for image */
+}
+
+.subject-container p {
+margin: 0;
+font-size: 18px;
+color: #333;
+}
+
+.subject-container:hover {
+background-color: lightblue; 
+transform: translateY(-5px); 
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); 
+}
+
+.subject-container:hover img {
+transform: scale(1.1); /* Scale image slightly on hover */
+}
+/* Modal Styling */
+.modal {
+display: none; 
+position: absolute;
+z-index: 1;
+left: 0;
+top: 0;
+width: 100%;
+height: 120vh;
+overflow: auto; /* Enable scroll if needed */
+justify-content: center; /* Center horizontally */
+align-items: center;
+background-color: rgba(0,0,0,0.4); /* Black with opacity */
+overflow-y: auto;
+}
+
+.modal-content {
+background-color: #d1e0e0; /* Match met vorige project */
+margin: 10% auto; /* Centered with margin from top */
+padding: 20px;
+border-radius: 10px;
+border: 1px solid #ccc; /* Match with previous project */
+width: 80%;
+max-width: 600px;
+}
+
+.modal h2 {
+    font-size: 1.5rem;
+    color: #333; /* Title color matching theme */
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.modal ul {
+list-style: none;
+padding: 0;
+}
+
+/* Close button for Modal */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #e74c3c;
+}
+/* Button inside the modal */
+.ga-door-button {
+    background-color: #8F88FD;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.ga-door-button:hover {
+    background-color: #6b5eea;
+    transform: translateY(-3px);
+}
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;    /* Center items horizontally */
+        text-align: center;     /* Center the search bar text */
+    }
+
+    header img {
+        margin-bottom: 10px;    /* Space between the logo and the search bar */
+    }
+
+    #searchInput {
+        width: 80%;             /* Make the search bar adapt to smaller screens */
+        margin-top: 10px;       /* Space above the search bar */
+        text-align: center;     /* Center the input text inside the search bar */
+    }
+    .category-container {
+        flex-direction: column;
+    }
+    .subject-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .subject-container img {
+        margin-bottom: 15px;
+        margin-right: 0;
+    }
+    .modal-content {
+        padding: 20px;
+        width: 90%;
+    }
+ 
+}
+@media (max-width: 468px) {
+    .modal-content {
+        padding: 15px;
+        width: 90%;
+    }
+    .close {
+        font-size: 20px;
+    }
+    .ga-door-button {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
+
+/* Footer Styling */
+footer {
+background-color: #f1f1f1; /* Light background color */
+padding: 20px 0; /* Padding for top and bottom */
+text-align: center; /* Center text */
+box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow on top */
+}
+
+.footer-content {
+max-width: 1200px; /* Max width for the footer content */
+margin: 0 auto; /* Center the footer content */
+padding: 0 20px; /* Padding for left and right */
+}
+
+.footer-content p {
+margin: 0; /* Remove default margin */
+color: #333; /* Text color */
+}
+
+.footer-links {
+list-style: none; /* Remove default list style */
+padding: 0; /* Remove padding */
+margin: 10px 0 0; /* Margin for spacing */
+}
+
+.footer-links li {
+display: inline; /* Display links inline */
+margin: 0 15px; /* Spacing between links */
+}
+
+.footer-links a {
+text-decoration: none;
+color: #8F88FD;
+transition: color 0.3s; 
+}
+
+.footer-links a:hover {
+color: #6b5eea;
+}
+
+
+@media (max-width: 768px) {
+.footer-links li {
+display: block; 
+margin: 5px 0; 
+}
+.header-content {
+flex-direction: column; 
+align-items: flex-start; 
+}
+
+input[type="search"] {
+width: 100%; 
+margin-top: 10px; 
+}
+}
